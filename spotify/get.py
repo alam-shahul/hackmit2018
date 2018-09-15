@@ -24,7 +24,8 @@ def get_all_songs(user_id):
         songs += get_songs_from_playlist(user_id, pl)
     return songs
 
-USER_ID = '22zrcabx54xzpwfktbhgok3nq'
-print(get_all_songs(USER_ID))
+if __name__=="__main__":
+    USER_ID = '22zrcabx54xzpwfktbhgok3nq'
+    print(get_all_songs(USER_ID))
 
 

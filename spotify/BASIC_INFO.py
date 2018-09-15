@@ -1,2 +1,2 @@
-PARTY_PLAYLIST = '6IJAc28VT2e8BrDrDsSgir'
-MY_USERNAME = '22di6xshcftebczzi7rdcd74y'
+PARTY_PLAYLIST = '6nKFG8XJxcWx6wY6JJK0mk'
+MY_USERNAME = 'exme7663dhexz4c6sy72ekhpc'
