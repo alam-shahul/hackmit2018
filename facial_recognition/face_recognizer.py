@@ -9,7 +9,7 @@ mahi_image = face_recognition.load_image_file("../face_images/mahi.jpg")
 
 # List spotify ID's
 andy_spotify = "12129338584?si=fJghDTmuSZegUk7z1KULkA"
-shahul_spotify = ""
+shahul_spotify = "fuck me daddy"
 jingyu_spotify = "22zrcabx54xzpwfktbhgok3nq"
 mahi_spotify = "22di6xshcftebczzi7rdcd74y"
 
@@ -25,12 +25,9 @@ for i in range(len(images)):
 	encoding = face_recognition.face_encodings(images[i])[0] # assumption: only 1 face in image
 	image_to_spotify_id[tuple(encoding)] = spotifies[i]
 
-print(image_to_spotify_id)
-quit()
 
 
-
-def get_spotify_ids(img, encoding):
+def get_spotify_ids(img, encoding_to_spotify_id):
 	"""
 	img is given as a numpy 2D array
 	output is a list of spotify IDs
@@ -50,4 +47,17 @@ def get_spotify_ids(img, encoding):
 				continue
 			encoding = known_faces[i]
 			spotify_ids.append(encoding_to_spotify_id[encoding])
-	return spotify_ids
+
+
+	return list(set(spotify_ids))
+
+
+if __name__=="__main__":
+	import numpy as np
+	import cv2
+	img = cv2.imread("yeet.jpg")
+	ids = get_spotify_ids(img, image_to_spotify_id)
+	print(ids)
+
+
+
