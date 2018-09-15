@@ -11,7 +11,6 @@ token = util.prompt_for_user_token(MY_USERNAME, 'playlist-modify-public')
 if token:
     sp = spotipy.Spotify(auth=token)
 
-
 def add_tracks_to_playlist(tracks):
 	sp.trace = False
 	results = sp.user_playlist_add_tracks(MY_USERNAME, 
