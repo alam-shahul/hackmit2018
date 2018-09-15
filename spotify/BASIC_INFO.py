@@ -1,0 +1,2 @@
+PARTY_PLAYLIST = ''
+MY_USERNAME = ''
