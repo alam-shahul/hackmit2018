@@ -1,2 +1,2 @@
-PARTY_PLAYLIST = ''
-MY_USERNAME = ''
+PARTY_PLAYLIST = '6IJAc28VT2e8BrDrDsSgir'
+MY_USERNAME = '22di6xshcftebczzi7rdcd74y'
