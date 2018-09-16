@@ -16,10 +16,21 @@ def get_playlists(user_id):
     return []
 
 def get_songs_from_playlist(user_id, playlist_id):
-    playlist_tracks = SP.user_playlist_tracks(user_id, playlist_id, fields='items,uri,name,id,total', market='fr')
-    if 'items' in playlist_tracks:
-        return [pl['track']['id'] for pl in playlist_tracks['items']]
-    return []
+    playlist_tracks_total = []
+    page = 0
+    while True:
+        playlist_tracks = SP.user_playlist_tracks(user_id, 
+                                                  playlist_id,
+                                                  offset = page * 100, 
+                                                  fields='items,uri,name,id,total', market='fr')
+        page += 1
+        if 'items' in playlist_tracks:
+            if len([pl['track']['id'] for pl in playlist_tracks['items']]) == 0:
+                break
+            playlist_tracks_total += [pl['track']['id'] for pl in playlist_tracks['items']]
+        else:
+            break
+    return playlist_tracks_total
 
 def get_all_songs(user_id):
     playlists = get_playlists(user_id)
