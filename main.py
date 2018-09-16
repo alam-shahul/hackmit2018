@@ -1,7 +1,8 @@
+import sys, os
+sys.path.insert(0, os.path.abspath('..'))
 import requests
-import sys
-from get import *
-from modify import *
+from spotify.get import *
+from spotify.modify import *
 
 if __name__=="__main__":
     user_id = sys.argv[1]

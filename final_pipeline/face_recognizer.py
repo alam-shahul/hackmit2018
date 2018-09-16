@@ -1,4 +1,6 @@
 import face_recognition
+import numpy as np
+import cv2
 
 # Load the jpg files into numpy arrays
 andy_image = face_recognition.load_image_file("../face_images/andy.jpg")
@@ -9,7 +11,7 @@ mahi_image = face_recognition.load_image_file("../face_images/mahi.jpg")
 
 # List spotify ID's
 andy_spotify = "12129338584?si=fJghDTmuSZegUk7z1KULkA"
-shahul_spotify = "fuck me daddy"
+shahul_spotify = "exme7663dhexz4c6sy72ekhpc"
 jingyu_spotify = "22zrcabx54xzpwfktbhgok3nq"
 mahi_spotify = "22di6xshcftebczzi7rdcd74y"
 
@@ -63,8 +65,6 @@ def get_spotify_ids(img, encoding_to_spotify_id):
 
 
 if __name__=="__main__":
-    import numpy as np
-    import cv2
     #img = cv2.imread("facial_recognition_test_images/yeet.jpg")
     #img = cv2.imread("facial_recognition_test_images/mahi_and_shahul_test.jpg")
     img = cv2.imread("facial_recognition_test_images/squad2.jpg")

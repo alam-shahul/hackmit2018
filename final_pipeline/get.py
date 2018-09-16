@@ -4,7 +4,7 @@ import spotipy.util as util
 from spotipy.oauth2 import SpotifyClientCredentials
 
 from BASIC_INFO import *
-import sort
+
 
 client_credentials_manager = SpotifyClientCredentials()
 SP = sp.Spotify(client_credentials_manager=client_credentials_manager)
@@ -26,6 +26,6 @@ def get_all_songs(user_id):
 
 if __name__=="__main__":
     USER_ID = '22zrcabx54xzpwfktbhgok3nq'
-    songs_sorted = sort.sort_songs_by_feature(get_all_songs(USER_ID))
-    print(songs_sorted)
+    print(get_all_songs(USER_ID))
+
 
