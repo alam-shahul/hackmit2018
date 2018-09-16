@@ -16,7 +16,7 @@ def write_weight():
 
 def gen_sliders():
 	master = Tk()
-	master.geometry("500x500")
+	master.geometry("500x160")
 	master.configure(background='#3399ff')
 
 	T = Text(master, height=2, width=30)
