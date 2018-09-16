@@ -3,8 +3,6 @@ import spotipy.util as util
 
 from spotipy.oauth2 import SpotifyClientCredentials
 
-from BASIC_INFO import *
-
 
 client_credentials_manager = SpotifyClientCredentials()
 SP = sp.Spotify(client_credentials_manager=client_credentials_manager)
