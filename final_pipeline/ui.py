@@ -2,27 +2,17 @@ from tkinter import *
 
 import sort
 
-weights = {}
-def set_lively(val):
-	global weights
-	weights['liveliness'] = float(val) / 100.0
-	write_weights()
+weight = 0.5
+def set_weight(val):
+	global weight
+	weight = float(val) / 100.0
+	write_weight()
 
-def set_acoustic(val):
-	global weights
-	weights['acoustic'] = float(val) / 100.0
-	write_weights()
-
-def set_dance(val):
-	global weights
-	weights['danceability'] = float(val) / 100.0
-	write_weights()
-
-def write_weights():
-    global weights
-    with open('weights.txt', 'w+') as file:
-    	for key, value in weights.items():
-    		file.write(key + ',' + str(value) + '\n')
+def write_weight():
+    global weight
+    if weight != 0.5:
+    	with open('weights.txt', 'w+') as file:
+	    	file.write(str(weight))
 
 def gen_sliders():
 	master = Tk()
@@ -45,9 +35,9 @@ def gen_sliders():
 	T = Text(master, height=2, width=30)
 	T.tag_configure("center", justify='center')
 	T.pack()
-	T.insert(END, "Lively\n")
+	T.insert(END, "<- Chill | Hype ->")
 	T.tag_add("center", "1.0", "end")
-	lively = Scale(master, 
+	slider = Scale(master, 
 				from_=0, 
 				to=100, 
 				bg='black',
@@ -61,54 +51,10 @@ def gen_sliders():
 				troughcolor='#d6e0f5', 
 				width=30, 
 				sliderrelief='solid',
-				command=set_lively)
-	lively.pack(fill=X, padx=10, pady=10)
+				command=set_weight)
+	slider.set(50)
+	slider.pack(fill=X, padx=10, pady=10)
 
-	T = Text(master, height=2, width=30)
-	T.tag_configure("center", justify='center')
-	T.pack()
-	T.insert(END, "Acoustic\n")
-	T.tag_add("center", "1.0", "end")
-	acoustic = Scale(master, 
-				from_=0, 
-				to=100, 
-				bg='black',
-				activebackground='black',
-				showvalue=0, 
-				orient=HORIZONTAL, 
-				borderwidth=0, 
-				highlightthickness=0, 
-				highlightcolor='#e6f2ff', 
-				highlightbackground='#e6f2ff', 
-				troughcolor='#e6f2ff', 
-				width=30, 
-				sliderrelief='solid',
-				command=set_acoustic)
-	acoustic.pack(fill=X, padx=10, pady=10)
-
-	T = Text(master, height=2, width=30)
-	T.tag_configure("center", justify='center')
-	T.pack()
-	T.insert(END, "Dance\n")
-	T.tag_add("center", "1.0", "end")
-	dance = Scale(master, 
-				from_=0, 
-				to=100, 
-				bg='black',
-				activebackground='black',
-				showvalue=0, 
-				orient=HORIZONTAL, 
-				borderwidth=0, 
-				highlightthickness=0, 
-				highlightcolor='#e6f2ff', 
-				highlightbackground='#e6f2ff', 
-				troughcolor='#e6f2ff', 
-				width=30, 
-				sliderrelief='solid',
-				command=set_dance)
-	dance.pack(fill=X, padx=10, pady=10)
-
-	sliders = [lively, acoustic, dance]
 	mainloop()
 
 gen_sliders()
