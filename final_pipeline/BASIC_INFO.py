@@ -1,0 +1,2 @@
+PARTY_PLAYLIST = '6nKFG8XJxcWx6wY6JJK0mk'
+MY_USERNAME = 'exme7663dhexz4c6sy72ekhpc'
