@@ -9,6 +9,9 @@ while(True):
 
     # operate on frame here
     print(frame.shape)
+    h,w,_ = frame.shape
+    mult = 500 / w
+    frame = cv2.resize(frame, (int(mult * w), int(mult * h)))
     cv2.imwrite("sample_frames/frame_%d.jpg" % frame_counter, frame)
     
     # Display frame
