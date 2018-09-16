@@ -37,11 +37,17 @@ def load_defaults():
 def process_frame(frame, image_to_spotify_id, current_tracks):
     ids = get_spotify_ids(frame, image_to_spotify_id)
     print(ids)
+    print(MY_USERNAME)
     tracks_to_add=set()
-    for user_id in ids:   
-        tracks=set(get_all_songs(user_id))
-        tracks_to_add=tracks-current_tracks
-        add_tracks_to_playlist(list(tracks_to_add))
+    
+    tracks_to_add=set([item for sublist in [get_all_songs(user_id) for user_id in ids if user_id != MY_USERNAME ] for item in sublist])
+    #for user_id in ids:   
+    #    tracks=set(get_all_songs(user_id))
+    #    tracks_to_add=tracks-current_tracks
+    #    add_tracks_to_playlist(list(tracks_to_add))
+    tracks_to_add = tracks_to_add - set(get_songs_from_playlist(MY_USERNAME, PARTY_PLAYLIST))
+    print(tracks_to_add)
+    add_tracks_to_playlist(list(tracks_to_add))
     return tracks_to_add
 
 if __name__=="__main__":
@@ -70,7 +76,10 @@ if __name__=="__main__":
     #reset_playlist(MY_USERNAME, PARTY_PLAYLIST)
     #cv2.destroyAllWindows()
 
-    from time import time
+    reset_playlist()
+
+
+    from time import time, sleep
 
     image_to_spotify_id = load_defaults()
     #img = cv2.imread("../face_images/jingyu.jpg")
@@ -80,11 +89,13 @@ if __name__=="__main__":
     cv2.imshow("test", img)
     cv2.waitKey(0)
     x = time()
-    playlist_tracks=set() # Should instead be initialized to tracks in playlist
+    playlist_tracks=set(get_songs_from_playlist(MY_USERNAME, PARTY_PLAYLIST))
     added_tracks = process_frame(img, image_to_spotify_id, playlist_tracks)
     print(time() - x, 'seconds for processing frame')
     x = time()
     playlist_tracks.update(added_tracks)
     print(time() - x, 'seconds for adding tracks')
+    
     #remove_tracks_from_playlist(list(playlist_tracks))   
+    reset_playlist()
     print("done!")
