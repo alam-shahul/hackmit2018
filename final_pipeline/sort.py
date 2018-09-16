@@ -31,4 +31,10 @@ def find_closest_songs_to_rating(track_list, hype, chill, limit = 10):
 	sorted_hype = sorted(hype_dict, key=lambda k: (k['hype_score'] - overall_hype) ** 2)
 	return [t['track'] for t in sorted_hype][:limit]
 
+def sort_songs_by_ratings(track_list, limit=10):
+	with open('weights.txt') as f:
+		num = float(f.read())
+		hype = num - 0.5
+		chill = 0.5 - num
+		return find_closest_songs_to_rating(track_list, hype, chill, limit)
 
