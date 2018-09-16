@@ -1,3 +1,1 @@
-liveliness,0.0
-acoustic,0.0
-danceability,0.0
+0.49
