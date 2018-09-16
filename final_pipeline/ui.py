@@ -10,9 +10,8 @@ def set_weight(val):
 
 def write_weight():
     global weight
-    if weight != 0.5:
-    	with open('weights.txt', 'w+') as file:
-	    	file.write(str(weight))
+    with open('weights.txt', 'w+') as file:
+	file.write(str(weight))
 
 def gen_sliders():
 	master = Tk()

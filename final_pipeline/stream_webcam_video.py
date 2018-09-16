@@ -14,7 +14,6 @@ while(True):
     # Display frame
     cv2.imshow("Capturing", frame)
 
-    #cv2.waitKey(25)
     if cv2.waitKey(1) & 0xFF == ord('q'):
         break
 
