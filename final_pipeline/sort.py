@@ -21,7 +21,6 @@ def sort_songs_by_feature(track_list):
 		hypeness[track] = sum([feat[x] for x in hype_features]) / 2.
 		chillness[track] = sum([feat[x] for x in chill_features]) / 2.
 		overall_hype_score[track] = hypeness[track] - chillness[track]
-	print(overall_hype_score)
 	return overall_hype_score
 
 def find_closest_songs_to_rating(track_list, hype, chill, limit = 10):
@@ -32,7 +31,7 @@ def find_closest_songs_to_rating(track_list, hype, chill, limit = 10):
 	return [t['track'] for t in sorted_hype][:limit]
 
 def sort_songs_by_ratings(track_list, limit=10):
-	with open('weights.txt') as f:
+	with open('weights.txt', 'r') as f:
 		num = float(f.read())
 		hype = num - 0.5
 		chill = 0.5 - num
