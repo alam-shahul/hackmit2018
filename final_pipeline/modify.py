@@ -36,4 +36,5 @@ def remove_tracks_from_playlist(tracks):
 
 def reset_playlist():
     songs = get_songs_from_playlist(MY_USERNAME, PARTY_PLAYLIST)
+    print(len(songs))
     remove_tracks_from_playlist(songs)
