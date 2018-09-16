@@ -11,7 +11,7 @@ def set_weight(val):
 def write_weight():
     global weight
     with open('weights.txt', 'w+') as file:
-	file.write(str(weight))
+        file.write(str(weight))
 
 def gen_sliders():
 	master = Tk()

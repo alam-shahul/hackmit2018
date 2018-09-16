@@ -3,6 +3,7 @@ import sys
 from face_recognizer import *
 from get import *
 from modify import *
+from time import time, sleep
 
 def load_defaults():
     # Load the jpg files into numpy arrays
@@ -12,7 +13,7 @@ def load_defaults():
     mahi_image = face_recognition.load_image_file("../face_images/mahi.jpg")
     
     # List spotify ID's
-    andy_spotify = "12129338584?si=fJghDTmuSZegUk7z1KULkA"
+    andy_spotify = "12129338584"
     shahul_spotify = "exme7663dhexz4c6sy72ekhpc"
     jingyu_spotify = "22zrcabx54xzpwfktbhgok3nq"
     mahi_spotify = "22di6xshcftebczzi7rdcd74y"
@@ -32,7 +33,7 @@ def load_defaults():
 
     return image_to_spotify_id
 
-def process_frame(frame, image_to_spotify_id, current_tracks, users_to_songs, users_to_countdowns):
+def process_frame(frame, image_to_spotify_id, current_tracks, users_to_songs, users_to_countdowns, countdown_limit=30):
     user_ids = get_spotify_ids(frame, image_to_spotify_id)
     print(user_ids)
     tracks_to_add=set()
@@ -42,13 +43,10 @@ def process_frame(frame, image_to_spotify_id, current_tracks, users_to_songs, us
         if user_id == MY_USERNAME:
             continue
 
-        users_to_countdowns[user_id] = 30
+        users_to_countdowns[user_id] = countdown_limit
         #new_tracks = set(get_all_songs(user_id))
-        new_tracks = set(get_sorted_songs(user_id))
-
-        if len(new_tracks) ==0:
-            raise ValueError()
-        print("New tracks?", new_tracks)
+        new_tracks = set(get_sorted_songs(user_id, limit=3))
+        print(len(new_tracks))
 
         if user_id in users_to_songs:
             old_songs = set(users_to_songs[user_id]) - new_tracks
@@ -72,9 +70,10 @@ def process_frame(frame, image_to_spotify_id, current_tracks, users_to_songs, us
     return tracks_to_add
 
 if __name__=="__main__":
-    reset_playlist()
+    countdown_limit = int(sys.argv[1])
+    image_to_spotify_id=load_defaults()
 
-    from time import time, sleep
+    reset_playlist()
 
     users_to_songs={}
     users_to_countdowns={}
@@ -88,11 +87,15 @@ if __name__=="__main__":
     
         # operate on frame here
         print(frame.shape)
+
+        h,w,_ = frame.shape
+        mult = 500 / w
+        frame = cv2.resize(frame, (int(mult * w), int(mult * h)))
     
         # Display frame
         cv2.imshow("Capturing", frame)
 
-        added_tracks = process_frame(frame, image_to_spotify_id, playlist_tracks, users_to_songs, users_to_countdowns)
+        added_tracks = process_frame(frame, image_to_spotify_id, playlist_tracks, users_to_songs, users_to_countdowns, countdown_limit=countdown_limit)
         print(users_to_songs)
 
         current_users=list(users_to_countdowns.keys())
@@ -102,6 +105,7 @@ if __name__=="__main__":
             if users_to_countdowns[user] <= 0:
                 remove_tracks_from_playlist(users_to_songs[user])
                 del users_to_countdowns[user]
+                #playlist_tracks.difference_update(set(users_to_songs[user]))
 
         print(users_to_countdowns)   
 
@@ -109,6 +113,7 @@ if __name__=="__main__":
             break
     
         frame_counter += 1
+        sleep(0.1)
     
     video.release()
     reset_playlist()
