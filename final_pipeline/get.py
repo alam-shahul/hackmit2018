@@ -1,6 +1,8 @@
 import spotipy as sp
 import spotipy.util as util
 
+from sort import sort_songs_by_ratings
+
 from spotipy.oauth2 import SpotifyClientCredentials
 
 
@@ -36,6 +38,11 @@ def get_all_songs(user_id):
     for pl in playlists:
         songs += get_songs_from_playlist(user_id, pl)
     return songs
+
+def get_sorted_songs(user_id, limit=10):
+    all_songs = get_all_songs(user_id)
+    sorted_songs = sort_songs_by_ratings(all_songs, limit)
+    return sorted_songs
 
 def reset_playlist(user_id, playlist_id):
     songs = get_songs_from_playlist(user_id, playlist_id)
